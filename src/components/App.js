@@ -1,3 +1,4 @@
+import { ipcRenderer } from "electron";
 import React, { Component } from "react";
 import { Route, Switch } from "react-router-dom";
 
@@ -48,11 +49,12 @@ class App extends Component {
   };
 
   updateTrayText = title => {
+  	ipcRenderer.send('update:timer', title);
 
   };
 
   timerHasExpired = () => {
-
+	ipcRenderer.send('update:timer', '');
   };
 
   // -------- end of electron event handerls ----------

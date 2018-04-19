@@ -1,5 +1,5 @@
 const electron = require('electron');
-const {Tray, Menu} = electron;
+const {Tray, Menu, app} = electron;
 
 class TimerTray extends Tray{
 	constructor(iconPath, window) {
@@ -16,10 +16,20 @@ class TimerTray extends Tray{
 			{
 				label: 'Toggle visibility',
 				click: this.toggleWindow.bind(this)
+			},
+			{
+				label: 'Quit',
+				click: this.onExit.bind(this)
 			}
 		]);
 
+		this.setToolTip('Timer app');
 		this.setContextMenu(trayMenu);
+	}
+
+	onExit() {
+		app.quit();
+		this.mainWindow = null;
 	}
 
 	getWindowPosition() {
